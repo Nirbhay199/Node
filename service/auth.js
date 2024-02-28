@@ -1,4 +1,5 @@
-var crypto = require("crypto");
+const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
 module.exports = class Auth {
   static encryptPassword(password) {
     let cipher = crypto.createCipher("aes256", "09f26e402586e2faa8da4c98a35f");
@@ -6,10 +7,7 @@ module.exports = class Auth {
     encryptedPassword += cipher.final("hex");
     return encryptedPassword;
   }
-  decryptPassword(password, userPassword) {
-    if (!userPassword) {
-      res.status(422).json({ success: false, message: "Enter Valid Password" });
-    }
+  static decryptPassword(password, userPassword) {
     const decipher = crypto.createDecipher(
       "aes256",
       "09f26e402586e2faa8da4c98a35f"
@@ -18,5 +16,17 @@ module.exports = class Auth {
     decryptPassword += decipher.final("utf8");
     console.log(decryptPassword);
     return decryptPassword == userPassword;
+  }
+
+  static token(data) {
+    return jwt.sign(
+      {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      },
+      process.env.jsonKey
+    );
   }
 };
