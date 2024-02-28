@@ -6,7 +6,7 @@ module.exports = class UserService {
     try {
       let user = await User.findOne({ email: data.email });
       if (user) {
-        return { success: false, message: "User Not present In Db" };
+        return { success: false, message: "User Already present In Db" };
       } else {
         let password = await Auth.encryptPassword(data.password);
         let newData = {

@@ -36,7 +36,12 @@ module.exports = class Singers {
   }
 
   static async getSinger(req, res) {
-    let response = await Artist.getSingers();
+    console.log(req.query.name)
+    let response = await Artist.getSingers(req.query.name);
+    res.status(200).json({ success: true, message: response });
+  }
+  static async getSongs(req, res) {
+    let response = await Song.getSongs();
     res.status(200).json({ success: true, message: response });
   }
 };

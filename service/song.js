@@ -15,4 +15,13 @@ module.exports = class SongService {
       return _.message;
     }
   }
+
+  static async getSongs() {
+    try {
+      let response = await Song.find({});
+      return response;
+    } catch (_) {
+      return _.message;
+    }
+  }
 };

@@ -26,25 +26,27 @@ module.exports = class ArtistService {
     }
   }
 
-  static async getSingers() {
+  static async getSingers(search) {
     try {
-      const artistsWithSongs = await Artist.aggregate([
-        {
-          $lookup: {
-            from: "songs", // name of the songs collection in your database
-            localField: "_id", // field from the artists collection
-            foreignField: "singer_id", // field from the songs collection
-            as: "songs", // field name for the joined data
-          },
-        },
-        // {
-        //   $project: {
-        //     _id: 1, // Include artist's _id
-        //     name: 1, // Include artist's name
-        //     songNames: "$songs.name", // Include only song titles from the joined data
-        //   },
-        // },
-      ]);
+      // const artistsWithSongs = await Artist.aggregate([
+      //   {
+      //     $lookup: {
+      //       from: "songs", // name of the songs collection in your database
+      //       localField: "_id", // field from the artists collection
+      //       foreignField: "singer_id", // field from the songs collection
+      //       as: "songs", // field name for the joined data
+      //     },
+      //   },
+      //   // {
+      //   //   $project: {
+      //   //     _id: 1, // Include artist's _id
+      //   //     name: 1, // Include artist's name
+      //   //     songNames: "$songs.name", // Include only song titles from the joined data
+      //   //   },
+      //   // },
+      // ]);
+      let find=search?{name:new RegExp("^"+ search)}:{};
+      const artistsWithSongs =await Artist.find(find);
       console.log(artistsWithSongs);
       return artistsWithSongs;
     } catch (error) {
