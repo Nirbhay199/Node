@@ -16,6 +16,16 @@ module.exports = class ArtistService {
     }
   }
 
+  static async deleteArtist(id) {
+    try {
+      console.log(id);
+      let response = await Artist.deleteOne({ _id: id });
+      return response;
+    } catch (_) {
+      return _;
+    }
+  }
+
   static async getSingers() {
     try {
       const artistsWithSongs = await Artist.aggregate([
