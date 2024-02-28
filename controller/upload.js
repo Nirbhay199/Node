@@ -1,5 +1,5 @@
 const admin = require("firebase-admin");
-var serviceAccount = require("/workspaces/Node/serviceAccountKey.json");
+var serviceAccount = require("/Users/610weblab/Documents/Node/serviceAccountKey.json");
 const { PassThrough } = require("stream");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),

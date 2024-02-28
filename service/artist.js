@@ -1,4 +1,4 @@
-const Artist = require("/workspaces/Node/modal/artist.js");
+const Artist = require("/Users/610weblab/Documents/Node/modal/artist.js");
 module.exports = class ArtistService {
   static async addArtist(data) {
     console.log(data);

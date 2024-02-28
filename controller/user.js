@@ -1,4 +1,4 @@
-const User = require("/workspaces/Node/service/user.js");
+const User = require("/Users/610weblab/Documents/Node/service/user.js");
 
 module.exports = class UserCntr {
   static async createAccount(req, res) {
