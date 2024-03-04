@@ -1,5 +1,7 @@
 const admin = require("firebase-admin");
-var serviceAccount = require("/Users/610weblab/Documents/Node/serviceAccountKey.json");
+var serviceAccount = require("../serviceAccountKey.json");
+const fs = require('fs');
+
 const { PassThrough } = require("stream");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -19,15 +21,22 @@ module.exports = class Upload {
   }
 };
 
+
 async function uploadImage(files, res) {
   const passThroughStream = new PassThrough();
 
   try {
     for (let i = 0; i < files.length; i++) {
-      let url = files[i].mimetype.split("/");
-      let destination = `${url[0]}/${files[i].originalname}.${url[1]}`;
+      const file = files[i];
+
+      // Create a temporary file on the server using the buffer property
+      const tempFilePath = '/tmp/uploaded-file';
+      fs.writeFileSync(tempFilePath, file.buffer);
+
+      let url = file.mimetype.split("/");
+      let destination = `${url[0]}/${file.originalname}.${url[1]}`;
       // Upload the file to Firebase Storage
-      await bucket.upload(files[i].path, {
+      await bucket.upload(tempFilePath, {
         destination: destination,
       });
       let imageUrl = await bucket.file(destination).getSignedUrl({

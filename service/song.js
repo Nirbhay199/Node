@@ -1,4 +1,4 @@
-const Song = require("/Users/610weblab/Documents/Node/modal/song.js");
+const Song = require("../modal/song.js");
 module.exports = class SongService {
   static async addSong(music, id) {
     try {

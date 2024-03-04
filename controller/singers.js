@@ -1,5 +1,5 @@
-const Artist = require("/Users/610weblab/Documents/Node/service/artist.js");
-const Song = require("/Users/610weblab/Documents/Node/service/song.js");
+const Artist = require("../service/artist.js");
+const Song = require("../service/song.js");
 
 module.exports = class Singers {
   static async addSinger(req, res) {

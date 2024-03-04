@@ -1,4 +1,4 @@
-const Upload = require("/Users/610weblab/Documents/Node/controller/upload.js");
+const Upload = require("../controller/upload.js");
 const multer = require("multer");
 const upload = multer({
   limits: { fieldSize: 1115 * 1024 * 1024 },

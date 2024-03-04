@@ -1,6 +1,6 @@
 const User = require("../modal/user.js");
-const Auth = require("/Users/610weblab/Documents/Node/service/auth.js");
-const Token = require("/Users/610weblab/Documents/Node/service/token.js");
+const Auth = require("../service/auth.js");
+const Token = require("../service/token.js");
 module.exports = class UserService {
   static async createUser(data) {
     try {

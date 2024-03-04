@@ -1,5 +1,5 @@
-const Auth = require("/Users/610weblab/Documents/Node/service/auth.js");
-const Token = require("/Users/610weblab/Documents/Node/modal/token.js");
+const Auth = require("../service/auth.js");
+const Token = require("../modal/token.js");
 module.exports = class TokenService {
   static async saveToken(data) {
     let jwtToken = await Auth.token(data);
