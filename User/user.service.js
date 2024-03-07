@@ -38,4 +38,13 @@ module.exports = class UserService {
     }
   }
 
+  static async fetchUserList(id){
+    try{
+      let result=User.find({_id:{$ne: id}}); 
+      return result; 
+    }catch(_){
+      console.log(_);
+    }
+  }
+
 };

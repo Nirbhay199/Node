@@ -16,6 +16,7 @@ module.exports = class UserCrt {
               name: req.body.name,
               email: email,
               password: newpassword,
+              fcm:req.body.fcm
             };
             let response = await User.signUp(userData);
             let token = await Token.generatetoken({
@@ -23,6 +24,7 @@ module.exports = class UserCrt {
               name: req.body.name,
               email: email,
               password: newpassword,
+              fcm:req.body.fcm
             });
             res
               .status(200)
@@ -68,7 +70,7 @@ module.exports = class UserCrt {
               name: response.name,
               email: email,
               password: response.password,
-            };
+              fcm:req.body.fcm   };
             let token = await Token.generatetoken(userData);
             console.token;
             res
@@ -134,7 +136,7 @@ module.exports = class UserCrt {
         if(result.success){
             let id =result.data.id;
             let response=await User.editUser(id,req.body);
-            res.status(200).json({success:true,message:"user data update",response})
+            res.status(200).json({success:true,message:"user data update",data:response})
         }else{
             res.status(422).json({success:false,message:`Invalid User`});  
         }
@@ -146,6 +148,24 @@ module.exports = class UserCrt {
 
     }
   }
+
+  static async getUserListing(req,res){
+ 
+    try{
+      let result = await Token.isValidToken(req);
+      if(result.success){
+          let id =result.data.id;
+          let response=await User.fetchUserList(id); 
+         res.status(200).json({success:true,message:"User Featched",data:response});
+      }else{
+          res.status(422).json({success:false,message:`Invalid User`});  
+      }
+    }catch(_){
+      res.status(422).json({success:false,message:`Internal Server Error ${_}`});  
+    }
+   
+  }
+
   static async logOut(req,res){
     try {
         let result = await Token.logOut(req);

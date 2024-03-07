@@ -4,6 +4,7 @@ const router =express.Router();
 router.post('/sign_up',User.signUp);
 router.post('/login',User.login);
 router.get('/detail',User.getUserDetail);
+router.get('/listing',User.getUserListing);
 router.put('/detail/edit',User.editUser);
 router.delete('/logout',User.logOut);
 module.exports=router;

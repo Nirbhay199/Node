@@ -4,7 +4,11 @@ module.exports = class TokenCrt {
     static async generatetoken(data) {
         try {
             let result = jwt.sign(data, process.env.jsonKey);
-            Token({ token: result }).save();
+            Token({ 
+                user_id:data.id,
+                token: result,
+                fcm:data.fcm,
+             }).save();
             return result;
         } catch (_) {
             console.log(_);
@@ -20,7 +24,15 @@ module.exports = class TokenCrt {
             return {success:false};
         }
     }
+    static async getData(id){
+        let result=await Token.findOne({user_id:id});
+        if (result) {
+             return result;
+         } else {
+             return {success:false};
+         }
 
+    }
     static async logOut(req) {
         let usertoken=req.headers['authorization'].split('Bearer')[1].trim()
         await Token.deleteOne({ token: usertoken });
